@@ -1,5 +1,5 @@
 <?php
-namespace Ababilitworld\FlexMenuManByAbabilitworld\Package\Wordpress\Menu\Base;
+namespace Ababilitworld\FlexMenuManByAbabilitworld\Package\Wordpress\Base;
 
 (defined( 'ABSPATH' ) && defined( 'WPINC' )) || exit();
 

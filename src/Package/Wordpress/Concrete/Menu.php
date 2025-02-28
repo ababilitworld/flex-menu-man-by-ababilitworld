@@ -1,11 +1,11 @@
 <?php
-namespace Ababilitworld\FlexMenuManByAbabilitworld\Package\Wordpress\Menu\Concrete;
+namespace Ababilitworld\FlexMenuManByAbabilitworld\Package\Wordpress\Concrete;
 
 (defined( 'ABSPATH' ) && defined( 'WPINC' )) || exit();
 
 use Ababilitworld\{
     FlexTraitByAbabilitworld\Standard\Standard,
-    FlexMenuManByAbabilitworld\Package\Menu\Base\Menu as BaseMenu,
+    FlexMenuManByAbabilitworld\Package\Wordpress\Base\Menu as BaseMenu,
 };
 
 use const Ababilitworld\FlexMenuManByAbabilitworld\{
@@ -70,11 +70,5 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
             echo '<h1>Active Color Scheme</h1>';
         }
     }
-
-    // Usage Example
-    if (is_admin()) {
-        new ThemeSettingsMenu();
-    }
-
 }
 	

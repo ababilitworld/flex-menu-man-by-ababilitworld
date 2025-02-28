@@ -3,15 +3,15 @@ namespace Ababilitworld\FlexMenuManByAbabilitworld\Package\Wordpress\Menu\Test;
 
 use PHPUnit\Framework\TestCase;
 use Ababilitworld\{
-    FlexMenuManByAbabilitworld\Package\Wordpress\Menu\Base\Menu as AbstractMenu,
-    FlexMenuManByAbabilitworld\Package\Wordpress\Menu\Concrete\Menu as ThemeSettingsMenu
+    FlexMenuManByAbabilitworld\Package\Wordpress\Base\Menu as AbstractMenu,
+    FlexMenuManByAbabilitworld\Package\Wordpress\Concrete\Menu as ThemeSettingsMenu
 };
 
 /**
  * Class MenuTest
  * Unit tests for AbstractMenu & ThemeSettingsMenu
  */
-class MenuTest extends TestCase
+class Menu extends TestCase
 {
     protected function setUp(): void
     {
