@@ -34,7 +34,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
             parent::__construct();
 
             // Add submenus dynamically
-            $this->add_submenu('Color Schemes', 'Color Schemes', 'edit.php?post_type=color_scheme', null);
+            $this->add_submenu('Color Schemes', 'Color Schemes', 'edit.php?post_type=color_scheme', '__return_null');
             $this->add_submenu('Active Color Scheme', 'Active Color Scheme', 'active-color-scheme', [$this, 'active_color_scheme_page']);
         }
 
