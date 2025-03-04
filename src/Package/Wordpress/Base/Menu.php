@@ -53,7 +53,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          * Holds the menu callback
          * @var string
          */
-        protected string $callback;
+        protected callable|string $callback;
 
         /**
          * Holds the menu icon
