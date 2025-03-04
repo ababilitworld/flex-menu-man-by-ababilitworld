@@ -24,18 +24,37 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
      */
     class Menu extends BaseMenu
     {
-        protected string $menu_slug = 'theme-settings';
-
         /**
-         * Constructor to define submenus
+         * Constructor to define menu properties and submenus
          */
         public function __construct()
         {
+            $this->page_title    = 'Theme Settings';
+            $this->menu_title    = 'Theme Settings';
+            $this->capability    = 'manage_options';
+            $this->menu_slug     = 'theme-settings';
+            $this->callback      = 'render_page';
+            $this->menu_icon     = 'dashicons-admin-customizer';
+            $this->menu_position = 80; // Position after 'Appearance'
+
             parent::__construct();
 
             // Add submenus dynamically
-            $this->add_submenu('Color Schemes', 'Color Schemes', 'edit.php?post_type=color_scheme', '__return_null');
-            $this->add_submenu('Active Color Scheme', 'Active Color Scheme', 'active-color-scheme', [$this, 'active_color_scheme_page']);
+            $this->add_submenu([
+                'page_title' => 'Color Schemes',
+                'menu_title' => 'Color Schemes',
+                'capability' => 'manage_options',
+                'slug'       => 'edit.php?post_type=color_scheme',
+                'callback'   => [$this, 'render_submenu']
+            ]);
+
+            $this->add_submenu([
+                'page_title' => 'Typography',
+                'menu_title' => 'Typography',
+                'capability' => 'manage_options',
+                'slug'       => 'typography',
+                'callback'   => [$this, 'render_submenu']
+            ]);
         }
 
         /**
@@ -47,11 +66,19 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         }
 
         /**
+         * Renders the active color scheme page
+         */
+        public function render_submenu(): void
+        {
+            echo '<h1>Under Construction !!!</h1>';
+        }
+
+        /**
          * Get the page title
          */
         protected function get_page_title(): string
         {
-            return 'Theme Settings';
+            return $this->page_title;
         }
 
         /**
@@ -59,16 +86,31 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         protected function get_menu_title(): string
         {
-            return 'Theme Settings';
+            return $this->menu_title;
         }
 
         /**
-         * Renders the active color scheme page
+         * Get the menu capability
          */
-        public function active_color_scheme_page(): void
+        protected function get_menu_capability(): string
         {
-            echo '<h1>Active Color Scheme</h1>';
+            return $this->capability;
+        }
+
+        /**
+         * Get the menu slug
+         */
+        protected function get_menu_slug(): string
+        {
+            return $this->menu_slug;
+        }
+
+        /**
+         * Get the callback function
+         */
+        protected function get_callback(): string
+        {
+            return $this->callback;
         }
     }
 }
-	

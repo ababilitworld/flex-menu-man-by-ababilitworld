@@ -26,10 +26,46 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         use Standard;
 
         /**
+         * Holds the page title
+         * @var string
+         */
+        protected string $page_title;
+
+        /**
+         * Holds the menu title
+         * @var string
+         */
+        protected string $menu_title;
+
+        /**
+         * Holds the menu capability
+         * @var string
+         */
+        protected string $capability;
+
+        /**
          * Holds the menu slug
          * @var string
          */
         protected string $menu_slug;
+
+        /**
+         * Holds the menu callback
+         * @var string
+         */
+        protected string $callback;
+
+        /**
+         * Holds the menu icon
+         * @var string
+         */
+        protected string $menu_icon;
+
+        /**
+         * Holds the menu position
+         * @var string
+         */
+        protected string $menu_position; 
 
         /**
          * Holds the submenu items
@@ -53,9 +89,9 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
             add_menu_page(
                 $this->get_page_title(),
                 $this->get_menu_title(),
-                'manage_options',
-                $this->menu_slug,
-                [$this, 'render_page'],
+                $this->get_menu_capability(),
+                $this->get_menu_slug(),
+                [$this, $this->get_callback()],
                 $this->get_menu_icon(),
                 $this->get_menu_position()
             );
@@ -68,12 +104,13 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         protected function register_submenus(): void
         {
-            foreach ($this->submenus as $submenu) {
+            foreach ($this->submenus as $submenu) 
+            {
                 add_submenu_page(
-                    $this->menu_slug,
+                    $this->get_menu_slug(),
                     $submenu['page_title'],
                     $submenu['menu_title'],
-                    'manage_options',
+                    $submenu['capability'],
                     $submenu['slug'],
                     $submenu['callback']
                 );
@@ -83,13 +120,14 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         /**
          * Adds a submenu
          */
-        public function add_submenu(string $page_title, string $menu_title, string $slug, callable $callback): void
+        public function add_submenu(array $data): void
         {
             $this->submenus[] = [
-                'page_title' => $page_title,
-                'menu_title' => $menu_title,
-                'slug'       => $slug,
-                'callback'   => $callback
+                'page_title' => $data['page_title'],
+                'menu_title' => $data['menu_title'],
+                'capability' => $data['capability'],
+                'slug'       => $data['slug'],
+                'callback'   => $data['callback'],
             ];
         }
 
@@ -109,11 +147,26 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         abstract protected function get_menu_title(): string;
 
         /**
+         * Get the page capability
+         */
+        abstract protected function get_menu_capability(): string;        
+
+        /**
+         * Get the menu slug
+         */
+        abstract protected function get_menu_slug(): string;
+
+        /**
+         * Get the menu slug
+         */
+        abstract protected function get_callback(): callable;
+
+        /**
          * Get the menu icon
          */
         protected function get_menu_icon(): string
         {
-            return 'dashicons-admin-generic';
+            return $this->$this->menu_icon ?? 'dashicons-admin-generic';
         }
 
         /**
@@ -121,7 +174,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         protected function get_menu_position(): int
         {
-            return 60;
+            return $this->menu_position ?? 60;
         }
     }
 
