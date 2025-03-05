@@ -171,10 +171,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         //abstract protected function get_callbacka(): callable;
 
-        protected function get_callback(): callable
-        {
-            return is_callable($this->callback) ? $this->callback : '__return_false';
-        }
+        abstract protected function get_callback(): callable;
 
         /**
          * Get the menu icon
