@@ -142,11 +142,6 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         }
 
         /**
-         * Renders the main menu page
-         */
-        abstract public function render_page(): void;
-
-        /**
          * Get the page title
          */
         abstract protected function get_page_title(): string;
