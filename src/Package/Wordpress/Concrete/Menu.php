@@ -16,7 +16,7 @@ use const Ababilitworld\FlexMenuManByAbabilitworld\{
     PLUGIN_VERSION
 };
 
-if ( ! class_exists( __NAMESPACE__.'\Menu' ) ) 
+if (!class_exists(__NAMESPACE__.'\Menu')) 
 {
     /**
      * Concrete Class ThemeSettingsMenu
@@ -33,7 +33,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
             $this->menu_title    = 'Theme Settings';
             $this->capability    = 'manage_options';
             $this->menu_slug     = 'theme-settings';
-            $this->callback      = 'render_page';
+            $this->callback      = [$this, 'render_page'];
             $this->menu_icon     = 'dashicons-admin-customizer';
             $this->menu_position = 80; // Position after 'Appearance'
 
@@ -44,7 +44,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
                 'page_title' => 'Color Schemes',
                 'menu_title' => 'Color Schemes',
                 'capability' => 'manage_options',
-                'slug'       => 'edit.php?post_type=color_scheme',
+                'slug'       => 'theme-settings-color-schemes',
                 'callback'   => [$this, 'render_submenu']
             ]);
 
@@ -52,7 +52,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
                 'page_title' => 'Typography',
                 'menu_title' => 'Typography',
                 'capability' => 'manage_options',
-                'slug'       => 'typography',
+                'slug'       => 'theme-settings-typography',
                 'callback'   => [$this, 'render_submenu']
             ]);
         }
@@ -62,15 +62,15 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         public function render_page(): void
         {
-            echo '<h1>Theme Settings</h1>';
+            echo '<div class="wrap"><h1>Theme Settings</h1></div>';
         }
 
         /**
-         * Renders the active color scheme page
+         * Renders the submenu pages
          */
         public function render_submenu(): void
         {
-            echo '<h1>Under Construction !!!</h1>';
+            echo '<div class="wrap"><h1>Under Construction !!!</h1></div>';
         }
 
         /**
@@ -108,7 +108,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         /**
          * Get the callback function
          */
-        protected function get_callback(): string
+        protected function get_callback(): callable
         {
             return $this->callback;
         }

@@ -53,7 +53,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          * Holds the menu callback
          * @var string
          */
-        protected callable|string $callback;
+        protected $callback;
 
         /**
          * Holds the menu icon
@@ -91,7 +91,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
                 $this->get_menu_title(),
                 $this->get_menu_capability(),
                 $this->get_menu_slug(),
-                [$this, $this->get_callback()],
+                $this->get_callback(),
                 $this->get_menu_icon(),
                 $this->get_menu_position()
             );
@@ -122,6 +122,16 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         public function add_submenu(array $data): void
         {
+            if (!isset($data['page_title'], $data['menu_title'], $data['capability'], $data['slug'], $data['callback'])) 
+            {
+                throw new \InvalidArgumentException("Missing submenu parameters.");
+            }
+
+            if (!is_callable($data['callback']) && !is_string($data['callback'])) 
+            {
+                throw new \InvalidArgumentException("Callback must be a string or a callable function.");
+            }
+
             $this->submenus[] = [
                 'page_title' => $data['page_title'],
                 'menu_title' => $data['menu_title'],
@@ -157,9 +167,14 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
         abstract protected function get_menu_slug(): string;
 
         /**
-         * Get the menu slug
+         * Get the menu callback method
          */
-        abstract protected function get_callback(): callable;
+        //abstract protected function get_callbacka(): callable;
+
+        protected function get_callback(): callable
+        {
+            return is_callable($this->callback) ? $this->callback : '__return_false';
+        }
 
         /**
          * Get the menu icon
