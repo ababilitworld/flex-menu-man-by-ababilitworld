@@ -108,9 +108,9 @@ if (!class_exists(__NAMESPACE__.'\Menu'))
         /**
          * Get the callback function
          */
-        protected function get_callback(): callable
+        protected function get_callback(): callable 
         {
-            return $this->callback;
+            return is_callable($this->callback) ? $this->callback : '__return_false';
         }
     }
 }
