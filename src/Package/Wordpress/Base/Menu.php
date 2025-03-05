@@ -181,7 +181,7 @@ if ( ! class_exists( __NAMESPACE__.'\Menu' ) )
          */
         protected function get_menu_icon(): string
         {
-            return $this->$this->menu_icon ?? 'dashicons-admin-generic';
+            return !empty($this->menu_icon) ? $this->menu_icon : 'dashicons-admin-generic';
         }
 
         /**
